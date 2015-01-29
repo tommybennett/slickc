@@ -1,4 +1,4 @@
-#BSD License
+## BSD License
 Copyright (c) 2015, Tommy Bennett 
 All rights reserved.
 

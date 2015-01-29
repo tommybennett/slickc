@@ -3,9 +3,9 @@ My SlickEdit Slick-C Macros
 
 This repository contains all of my Slick-C macros that I currently use.
 
-# Macros for All Languages
+## Macros for All Languages
 
-**Paste Comment**
+### Paste Comment
 
 *all/paste_comment.e*
 
@@ -14,7 +14,7 @@ file and it will be automatically formatted as a block comment.  The
 characters used for the block comment are the characters that are
 setup for a block comment for the current language mode.
 
-**Navigate to Next/Previous Function**
+### Navigate to Next/Previous Function
 
 *all/next_prev_func.e*
 
@@ -27,13 +27,13 @@ visible at the top of the editor.
 This allows you to quickly navigate through the functions in a file while
 keeping you eyes at the top line of the editor, instead of scrolling
 manually through a file by paging up and down, which causes the functions
-to appear on any abitrary line in the editor.
+to appear on any arbitrary line in the editor.
 								     
-# C++ Macros
+## C++ Macros
 
-**Algorithm Mnemonics**
+### Algorithm Mnemonics
 
-*cpp/algorithm_mnemonics.e
+*cpp/algorithm_mnemonics.e*
 
 Do you get tired of typing begin(v) and end(v) when using STL algorithms?
 Or do you have a hard time remembering all the different algorithms?
@@ -65,7 +65,7 @@ created flash cards and memorized them all!  No more typing begin, end, or
 looking up algorithms in a reference. 
 
 In addition, some of the mnemonics will write the lambda for you,
-for example the count_if menemonic `cni` will expand to:
+for example the count_if mnemonic `cni` will expand to:
 
 ```
   auto num = count_if( begin(v), end(v), [](const auto& elem) {
@@ -74,18 +74,18 @@ for example the count_if menemonic `cni` will expand to:
 
 Enjoy!
 
-**New Class**
+### New Class
 
 *cpp/new_class*
 
 Provides a dialog interface to the mktools for custom code templates.
 Requires the mktools binaries located in the mktools repository.
 
-*cpp/make_func.e
+*cpp/make_func.e*
 
 Implements the method on the current line inside of a class declaration.
 
-**Edit Test File**
+### Edit Test File
 
 *cpp/edit_test_file.e*
 
