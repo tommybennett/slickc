@@ -72,15 +72,21 @@ _command new_class() name_info(',')
     if ( strcmp(_param1, "basic_module") == 0 )
       command = "/Users/tommy/bin/mkmodule "_param4" "_param3" "_param2; 
     else
-      command = "/Users/tommy/bin/mkclass -t "_param1" "_param4" "_param3" "_param2; 
+      command = "/Users/tommy/bin/mkclass -t "_param1" "_param4" "_param3" "_param2;
 
     shell( command, "Q" );
+
+    // Are we creating an app module or library module?
+    boolean app_module = pos("app/", _param4) != 0;
 
     // Get the header filename, filename, and test filename.
     _str filename = camel2snake(_param2); 
     int index = pos('/',_param4);
     _str modulename = substr(_param4,index+1);
     _str header = "include/"modulename"/"filename".h";
+    if (app_module) {
+      header = "app/"modulename"/"filename".h";
+    }
     _str impl = _param4"/"filename".cpp"; 
     _str testfile = "tests/"_param4"/"filename"_test.cpp";
 
