@@ -79,6 +79,11 @@
 			iota(begin(%\m sur_text%),%\l end(%\m sur_text%), value);
 		</text>
 	</p>
+	<p n="cctr">
+		<text>
+			%\j( const %\j&amp; );%\m create_cctr%
+		</text>
+	</p>
 	<p n="=surround_with_func">
 		<text>
 			//
@@ -122,6 +127,18 @@
 			auto pos = remove(begin(%\m sur_text%),%\l end(%\m sur_text%), %\c);
 			   if (pos != end(pos)) {
 			   }
+		</text>
+	</p>
+	<p n="rw">
+		<text>
+			std::istream&amp; read( std::istream&amp; );
+			std::ostream&amp; write( std::ostream&amp; ) const;
+			inline std::istream&amp; operator &gt;&gt;( std::istream&amp; is, %\j&amp; o ) {
+			  return o.read( is ); %\S
+			}
+			inline std::ostream&amp; operator &lt;&lt;( std::ostream&amp; os, const %\j&amp; o ) {
+			  return o.write( os );
+			}
 		</text>
 	</p>
 	<p n="=surround_with_nth">
@@ -200,6 +217,11 @@
 			}
 		</text>
 	</p>
+	<p n="init">
+		<text>
+			void init( const %\j&amp; );%\m create_init%
+		</text>
+	</p>
 	<p n="=surround_with_ppt">
 		<text>
 			auto pos = partition_point(begin(%\m sur_text%),%\l end(%\m sur_text%),%\l [](const auto&amp; elem) {
@@ -218,6 +240,11 @@
 		<text>
 			default:
 			%\m sur_text -indent%
+		</text>
+	</p>
+	<p n="fre">
+		<text>
+			for_each( %\c, %\c, %\c );
 		</text>
 	</p>
 	<p n="te">
@@ -244,6 +271,11 @@
 			}
 		</text>
 	</p>
+	<p n="ti">
+		<text>
+			Times(%\c)%\c
+		</text>
+	</p>
 	<p n="=surround_with_cpy">
 		<text>
 			copy(begin(%\m sur_text%), end(%\m sur_text%), begin(dest));
@@ -256,9 +288,15 @@
 			}
 		</text>
 	</p>
-	<p n="ti">
+	<p n="impl">
 		<text>
-			Times(%\c)%\c
+			class impl;
+			std::unique_ptr&lt;impl&gt; impl_;
+		</text>
+	</p>
+	<p n="op==">
+		<text>
+			bool operator ==( const %\j&amp; ) const;
 		</text>
 	</p>
 	<p n="=surround_with_type_union">
@@ -266,6 +304,11 @@
 			typedef union %\c {
 			%\m sur_text -indent%
 			};
+		</text>
+	</p>
+	<p n="ddtr">
+		<text>
+			virtual ~%\j();%\m create_ddtr%
 		</text>
 	</p>
 	<p n="=surround_with_cpb">
@@ -357,6 +400,12 @@
 			copy_n(begin(%\m sur_text%), n, end(%\m sur_text%));
 		</text>
 	</p>
+	<p n="=op">
+		<text>
+			%\j&amp; operator =( const %\j&amp; );
+			void Swap( %\j&amp; );%\m create_assignment_operator%
+		</text>
+	</p>
 	<p n="us">
 		<text>
 			using namespace %\c
@@ -423,8 +472,8 @@
 	</p>
 	<p n="pimpl">
 		<text>
-			%\istruct impl;
-			%\istd::unique_ptr&lt;impl&gt; pimpl;%\c
+			%\iclass impl;
+			%\istd::unique_ptr&lt;impl&gt; impl_;%\m create_pimpl%%\c
 		</text>
 	</p>
 	<p n="=surround_with_msm">
@@ -597,6 +646,11 @@
 			%\c});
 			if (pos != end(pos)) {
 			}
+		</text>
+	</p>
+	<p n="dctr">
+		<text>
+			%\j();%\m create_dctr%
 		</text>
 	</p>
 	<p n="=surround_with_for">
