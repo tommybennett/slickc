@@ -85,35 +85,42 @@ static boolean associated_file_exists(_str &filename, _str ext_list)
    return false;
 }
 
+static _str project_home_path() {
+  _str project = _project_get_filename();
+  int k = pos("lib", project);
+  return substr(project, 1, k - 1);
+}
+
 static _str test_file_for(_str filename)
 {
-  _str ext = _get_extension(filename);
-
-  // if filename ends with _test.cpp replace with _test with blanks
-  int index = pos("_test", filename);
-  if (!index) {
-    _str ext_list = "_test." :+ ext :+ " _test.cpp _test.c";
-    if (!associated_file_exists(filename, ext_list )) {
-      return ""; 
-    }
-  } else {
-    filename = substr(filename, 1, index-1) :+ "." :+ ext;
-    if (!associated_file_exists(filename, "." :+ ext)) {
-      return ""; 
-    }
+  int i = pos("lib", filename);
+  if (i) {
+    int j = pos(".", filename);
+    _str test_file = project_home_path() :+ "tests/" :+ substr(filename, i, j - i) :+ "_test.cpp";
+    return test_file;
   }
-
-  return filename;
+  i = pos("include", filename);
+  if (i) {
+    int j = pos(".", filename);
+    _str test_file = project_home_path() :+ "tests/lib" :+ 
+      substr(filename, i + 7, j - (i + 7)) :+ "_test.cpp";
+    return test_file;
+  }
+  return "";
 }
 
 _command void edit_test_file() name_info(','VSARG2_READ_ONLY|VSARG2_REQUIRES_EDITORCTL|VSARG2_REQUIRES_MDI)
 {
    _str filename = test_file_for(p_buf_name);
+   auto i = pos("_test.cpp", p_buf_name);
+   if (i) {
+     auto j = pos("lib", p_buf_name);
+     filename = project_home_path() :+ substr(p_buf_name, j, i - j) :+ ".cpp";
+   }
 
    // edit the file
    if (filename != "") {
       edit(maybe_quote_filename(filename),EDIT_DEFAULT_FLAGS);
-      message("Found: " filename);
    } else {
       message("No match found");
    }
