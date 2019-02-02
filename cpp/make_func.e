@@ -18,8 +18,8 @@ _command make_func() {
   int left_paren = pos('(', line);
   int last_space = lastpos(' ', substr(line, 1, left_paren));
 
-  return_type = substr(line, 1, last_space);
-  func_name = substr(line, last_space+1);
+  return_type = substr(line, 1, last_space - 1);
+  func_name = substr(line, last_space + 1);
   func_name = strip(func_name, 'T', ';'); 
 
   if ( interface_file ) {
@@ -27,17 +27,13 @@ _command make_func() {
     edit_counterpart(); 
     bottom_of_buffer();
     find('^}', 'U-');
-
     cursor_up();
-    _insert_text("\n" return_type " " class_name "::" func_name "\n"); 
+    _insert_text("\n" return_type " " class_name "::" func_name " {\n\n}\n"); 
     beautify(true);
     cursor_up();
   }
 
-  select_line();
-  sw('func');
-
-  cursor_up();
-  line_to_top();
+  prev_func();
   cursor_down();
+  _insert_text("  ");
 }

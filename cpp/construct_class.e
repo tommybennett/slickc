@@ -46,7 +46,7 @@ _command void create_cctr()
 {
   _str class_name;
   class_name = get_class_name();  
-  create_member_function(class_name "::" class_name "( const " class_name "& rhs ) {\n}\n\n");
+  create_member_function(class_name "::" class_name "(const " class_name "& rhs) {\n  init(rhs);\n}\n\n");
 }
 
 _command void create_assignment_operator()
@@ -55,18 +55,11 @@ _command void create_assignment_operator()
   _str class_name;
   class_name = get_class_name();  
   
-  text = class_name "& " class_name "::operator =( const " class_name "& rhs ) {\n";
-  text = text :+ "  " class_name " temp( rhs );  // do all work off to the side\n";
-  text = text :+ "  Swap( temp );             // then ""commit"" the work using\n";
-  text = text :+ "  return *this;             //  nonthrowing operations only\n";
+  text = class_name "& " class_name "::operator =(const " class_name "& rhs) {\n";
+  text = text :+ "  init(rhs);"
+  text = text :+ "  return *this;\n";
   text = text :+ "}\n\n";
    
-  text = text :+ "void " class_name "::Swap( " class_name "& other ) {\n";
-  text = text :+ "  unique_ptr<impl> temp( impl_ );\n";
-  text = text :+ "  impl_ = other.impl_;\n";
-  text = text :+ "  other.impl_ = temp;\n";
-  text = text :+ "}\n\n";
-
   create_member_function(text);
 }
 
@@ -81,7 +74,7 @@ _command void create_init()
 {
   _str class_name;
   class_name = get_class_name();
-  create_member_function("void " class_name "::init( const " class_name "& other ) {\n}\n\n");
+  create_member_function("void " class_name "::init(const " class_name "& other) {\n}\n\n");
 }
 
 _command void create_pimpl()
