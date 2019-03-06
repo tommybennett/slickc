@@ -88,6 +88,9 @@ static boolean associated_file_exists(_str &filename, _str ext_list)
 static _str project_home_path() {
   _str project = _project_get_filename();
   int k = pos("lib", project);
+  if (!k) {
+    k = pos("app", project);
+  }
   return substr(project, 1, k - 1);
 }
 
@@ -106,6 +109,12 @@ static _str test_file_for(_str filename)
       substr(filename, i + 7, j - (i + 7)) :+ "_test.cpp";
     return test_file;
   }
+  i = pos("app", filename);
+  if (i) {
+    int j = pos(".", filename);
+    _str test_file = project_home_path() :+ "tests/" :+ substr(filename, i, j - i) :+ "_test.cpp";
+    return test_file;
+  }
   return "";
 }
 
@@ -115,8 +124,12 @@ _command void edit_test_file() name_info(','VSARG2_READ_ONLY|VSARG2_REQUIRES_EDI
    auto i = pos("_test.cpp", p_buf_name);
    if (i) {
      auto j = pos("lib", p_buf_name);
+     if (!j) {
+       j = pos("app", p_buf_name);
+     }
      filename = project_home_path() :+ substr(p_buf_name, j, i - j) :+ ".cpp";
    }
+   message(filename);
 
    // edit the file
    if (filename != "") {

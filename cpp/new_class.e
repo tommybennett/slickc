@@ -94,7 +94,6 @@ _command new_class() name_info(',')
     _str project_file = absolute(_param4"/"modulename".vpj");
     project_add_file(header, false, project_file); 
     project_add_file(impl, false, project_file); 
-    project_add_file(testfile, false, project_file); 
     _clearWorkspaceFileListCache();
     workspace_refresh(); 
 

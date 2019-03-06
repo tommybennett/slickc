@@ -35,5 +35,6 @@ _command make_func() {
 
   prev_func();
   cursor_down();
+  cursor_down();
   _insert_text("  ");
 }
